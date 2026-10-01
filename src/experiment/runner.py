@@ -15,15 +15,17 @@ def answer_with_relevant_evidence(example):
 def run_experiment(examples):
     results = []
 
-    for example in examples:
-        no_evidence = answer_with_no_evidence(example)
-        relevant_evidence = answer_with_relevant_evidence(example)
+    for i, example in enumerate(examples):
+      print(f"Question {i + 1} of {len(examples)}")
 
-        results.append({
-            "question": example.question,
-            "correct_answer": example.answer,
-            "answer_with_no_evidence": no_evidence,
-            "answer_with_relevant_evidence": relevant_evidence
+      no_evidence = answer_with_no_evidence(example)
+      relevant_evidence = answer_with_relevant_evidence(example)
+
+      results.append({
+          "question": example.question,
+          "correct_answer": example.answer,
+          "answer_with_no_evidence": no_evidence,
+          "answer_with_relevant_evidence": relevant_evidence
         })
 
     return results
