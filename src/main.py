@@ -1,13 +1,33 @@
-from squad import SquadDataset
-from experiment import run_experiment
-from storage import save_json
+from google import genai
+
+from data import prepare_questions
+from experiment import create_all_experiments
+from generation import generate_responses
+from evaluation import evaluate_results
+from results import save_results
 
 
-dataset = SquadDataset()
+def main():
+    client = genai.Client()
 
-examples = dataset.get_range(0, 10)
+    questions = prepare_questions(0, 5)
 
-# runs src/experiment/runner.py
-results = run_experiment(examples)
+    experiments = create_all_experiments(questions)
 
-save_json(results)
+    responses = generate_responses(client, experiments)
+
+    evaluated_results = evaluate_results(responses)
+
+    save_results(evaluated_results, "results/results.json")
+
+    for result in evaluated_results:
+        print(f"Condition: {result['condition']}")
+        print(f"Question: {result['question']}")
+        print(f"Correct answer: {result['correct_answer']}")
+        print(f"Model response: {result['response']}")
+        print(f"Correct: {result['correct']}")
+        print()
+
+
+if __name__ == "__main__":
+    main()
