@@ -1,6 +1,12 @@
-from datasets import load_dataset
+from squad import SquadDataset
+from experiment import run_experiment
+from storage import save_json
 
-dataset = load_dataset("rajpurkar/squad", split="train")
 
-print(dataset)
-print(dataset[0])
+dataset = SquadDataset()
+
+examples = dataset.get_range(0, 10)
+
+results = run_experiment(examples)
+
+save_json(results)
