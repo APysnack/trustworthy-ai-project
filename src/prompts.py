@@ -1,3 +1,4 @@
+# TODO: Figure out prompt wording, llm should answer in few words to match SQuAD answer format 
 def build_prompt(experiment):
     prompt = f"""Answer the following question.
 
