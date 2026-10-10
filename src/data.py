@@ -1,3 +1,4 @@
+import os
 import json
 from dataclasses import asdict, dataclass
 
@@ -14,6 +15,9 @@ class Question:
 
 
 def load_squad():
+    hf_token = os.getenv("HF_TOKEN")
+    if hf_token:
+        return load_dataset("rajpurkar/squad", split="train", token=hf_token)
     return load_dataset("rajpurkar/squad", split="train")
 
 

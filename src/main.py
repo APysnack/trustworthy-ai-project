@@ -1,3 +1,5 @@
+import os
+from dotenv import load_dotenv
 from google import genai
 
 from data import prepare_questions
@@ -8,7 +10,13 @@ from results import save_results
 
 
 def main():
-    client = genai.Client()
+    load_dotenv()  # Load environment variables from .env file
+    
+    google_api_key = os.getenv("GOOGLE_API_KEY") or os.getenv("GEMINI_API_KEY")
+    if not google_api_key:
+        raise ValueError("Set GOOGLE_API_KEY or GEMINI_API_KEY")
+    
+    client = genai.Client(api_key=google_api_key)
 
     questions = prepare_questions(0, 5)
 
