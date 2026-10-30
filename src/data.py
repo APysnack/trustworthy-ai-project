@@ -13,6 +13,7 @@ class Question:
     correct_answer: str
     context: str
 
+
 def load_squad():
     hf_token = os.getenv("HF_TOKEN")
     if hf_token:
