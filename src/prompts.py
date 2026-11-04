@@ -13,9 +13,13 @@ Question: {experiment.question.question}"""
     # Otherwise:
         #   Check that experiment.evidence is not empty.
         #   Include experiment.evidence in the prompt.
-    if experiment.condition == "relevant_evidence":
+    if experiment.condition == "no_evidence":
+        pass
+    else:
+        if not experiment.evidence:
+            raise ValueError(
+                f"Evidence is required for condition {experiment.condition}."
+            )
         prompt += f"\n\nEvidence: {experiment.evidence}"
-    elif experiment.condition != "no_evidence":
-        raise ValueError(f"Unknown condition: {experiment.condition}")
 
     return prompt

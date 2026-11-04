@@ -1,7 +1,8 @@
 from dataclasses import dataclass
 
 from data import Question
-from evidence import create_relevant_evidence, create_irrelevant_evidence, generate_conflicting_evidence
+from evidence import create_relevant_evidence, create_irrelevant_evidence
+#, generate_conflicting_evidence
 
 
 @dataclass
@@ -32,12 +33,12 @@ def create_experiments(
             condition="irrelevant_evidence",
             evidence=create_irrelevant_evidence(question, questions),
         ),
-        Experiment(
-            question=question,
-            condition="conflicting_evidence",
-            evidence=generate_conflicting_evidence(question)[0],
-            conflict_answer=generate_conflicting_evidence(question)[1],
-        ),
+        # Experiment(
+        #     question=question,
+        #     condition="conflicting_evidence",
+        #     evidence=generate_conflicting_evidence(question)[0],
+        #     conflict_answer=generate_conflicting_evidence(question)[1],
+        # ),
     ]
 
 def create_all_experiments(questions):
